@@ -17,7 +17,7 @@ route.use(function(req, res, next) {
 route.use(express.static(__dirname + "/public_static"))
 //route.use("/todos", todoRoute)
 //route.set("port", (process.env.PORT || 2999))
-port=process.env.PORT || 2999
+const port=process.env.PORT || 2999
 
 
 route.get("/todo", (req,res)=>{
@@ -160,7 +160,7 @@ route.patch("/todo/:id", (req,res)=>{
 
 
 db.sync().then(()=> {
-    route.listen(route.get("port"))
+    route.listen(port)
 }).catch((err)=>{
     console.log(err)
 })
