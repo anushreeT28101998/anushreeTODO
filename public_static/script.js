@@ -1,4 +1,4 @@
-const url = "http://localhost:3999";
+const url = "http://localhost:2999";
 
 async function getData() {
     let res = await fetch("/todo");
@@ -104,7 +104,7 @@ async function addTask() {
 
 
     if (data.title != "" && data.due != "" && data.priority != "") {
-        let res = await fetch("http://localhost:3999/todo",
+        let res = await fetch("http://localhost:2999/todo",
             {
                 method: 'POST',
                 headers: {
