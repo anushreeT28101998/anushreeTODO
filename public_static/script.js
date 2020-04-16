@@ -153,7 +153,7 @@ async function getNotes(id, rowData) {
             input.id = id + "_input";
             edit.className = 'editButton';
             edit.onclick = function () {
-                editBlock(id);
+                geteditPortal(id);
             }
         }
     }
@@ -193,7 +193,7 @@ function sortData(data, val) {
 
 
 function sortByDueDate(data) {
-    console.log(data);
+    //console.log(data);
     data.sort(function (a, b) {
         if (a.due < b.due) return -1;
         else if (a.due > b.due) return 1;
@@ -247,18 +247,19 @@ function sortByStatus(data) {
 }
 
 
-function editBlock(id) {
+function geteditPortal(id) {
     modal.style.display = "block";
-    fetch("/todo/" + id).then((data) => data.json().then((data) => {
+    fetch("/todo/" + id).then((data) => data.json()).then((data) => {
+    // console.log("data is " + data)
         document.querySelector("#editTitle").value = data.title;
         document.querySelector("#editDescription").value = data.description;
         document.querySelector("#editDue").value = data.due;
         document.querySelector("#editPriority").value = data.priority;
-        document.querySelector("#editStatuss").checked = data.status;
+        document.querySelector("#editStatus").checked = data.status;
         document.querySelector("#saveBtn").onclick = function () {
             saveChanges(id);
         }
-    }));
+    });
 }
 
 
@@ -266,7 +267,7 @@ async function saveChanges(id) {
     let data = {
         due: document.querySelector("#editDue").value,
         priority: document.querySelector("#editPriority").value,
-        status: document.querySelector("#editStatuss").checked
+        status: document.querySelector("#editStatus").checked
     }
     console.log(data);
     let res = await fetch("/todo/" + id,

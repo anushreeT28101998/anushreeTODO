@@ -16,7 +16,7 @@ route.use(function(req, res, next) {
 
 route.use(express.static(__dirname + "/public_static"))
 //route.use("/todos", todoRoute)
-route.set("port", (process.env.PORT || 3999))
+route.set("port", (process.env.PORT || 2999))
 
 
 
@@ -35,13 +35,15 @@ route.get("/todo/:id", (req,res)=>{
         })    
     }
 
-const todo =  Todos.findbyId(req.params.id)
+    res.status(200).send({})
 
-if(!todo){
-    return res.status(404).send({
-        error : "No Todo found with id = " + req.params.id,
-    })
-}
+//const todo =  Todos.findbyId(req.params.id)
+
+// if(!todo){
+//     return res.status(404).send({
+//         error : "No Todo found with id = " + req.params.id,
+//     })
+// }
 });
 
 route.get("/todo/:id/notes", (req,res) =>{
@@ -144,15 +146,15 @@ route.patch("/todo/:id", (req,res)=>{
         where: {
             id: taskid
         }
-    }).then((item)=>{
-        item.dueDate = data.dueDate;
-        item.status = data.status;
-        item.priority = data.priority;
+    }).then((todo)=>{
+        todo.due = data.due;
+        todo.status = data.status;
+        todo.priority = data.priority;
 
-        item.save().then(()=>{
+        todo.save().then(()=>{
             res.send("")
         }).catch((err)=> err)
-    })
+    }).catch((err)=> err)
 
 })
 

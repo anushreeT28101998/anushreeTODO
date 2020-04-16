@@ -35,7 +35,7 @@ const Todos = db.define('Todos', {
         type : sequelize.STRING(100) 
     },
 
-    due : {
+    due: {
         type : sequelize.DATEONLY,
         allowNull: false
     },
@@ -57,10 +57,7 @@ const Todos = db.define('Todos', {
 Todos.hasMany(notes);
 notes.belongsTo(Todos);
 
-db.Todos.destroy({
-    where: {},
-    truncate: true
-  })
+
 
 module.exports = {
     db, Todos, notes
